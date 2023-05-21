@@ -1,10 +1,10 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.2'
+    id 'org.springframework.boot' version '2.7.12'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
-group = 'ru.javabegin.micro.planner'
+group = 'ru.orlov.micro.planner'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 

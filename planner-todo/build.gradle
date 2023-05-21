@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-group = 'ru.javabegin.micro.planner'
+group = 'ru.orlov.micro.planner'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
