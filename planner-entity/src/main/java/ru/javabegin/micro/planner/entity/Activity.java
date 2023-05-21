@@ -9,16 +9,10 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.Objects;
 
-
-/*
-
-Вся активность пользователя (активация аккаунта, другие действия по необходимости)
-
-*/
-
+/* Вся активность пользователя (активация аккаунта, другие действия по необходимости) */
 
 @Entity
-@Table(name = "activity", schema = "todolist", catalog = "postgres")
+@Table(name = "activity", schema = "todo", catalog = "planner-todo")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -27,12 +21,14 @@ public class Activity { // название таблицы будет брать
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Type(type = "org.hibernate.type.NumericBooleanType") // для автоматической конвертации числа в true/false
+    @Column(name = "activated")
     private Boolean activated; // становится true только после подтверждения активации пользователем (обратно false уже стать не может по логике)
 
-    @Column(updatable = false)
+    @Column(name = "uuid", updatable = false)
     private String uuid; // создается только один раз с помощью триггера в БД
 
 //    @OneToOne(fetch = FetchType.LAZY)
@@ -40,15 +36,18 @@ public class Activity { // название таблицы будет брать
 //    @JoinColumn(name = "user_id", referencedColumnName = "id")
 //    private User user;
 
-    @Column(name="user_id")
+    @Column(name = "user_id")
     private Long userId;
 
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Activity activity = (Activity) o;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Activity activity = (Activity) o;
         return id.equals(activity.id);
     }
 
@@ -56,6 +55,4 @@ public class Activity { // название таблицы будет брать
     public int hashCode() {
         return Objects.hash(id);
     }
-
-
 }
