@@ -10,5 +10,4 @@ public class PlannerTodoApplication {
     public static void main(String[] args) {
         SpringApplication.run(PlannerTodoApplication.class, args);
     }
-
 }
