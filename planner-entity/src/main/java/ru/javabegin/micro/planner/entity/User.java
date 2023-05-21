@@ -1,12 +1,6 @@
 package ru.javabegin.micro.planner.entity;
 
-
-
-/*
-
-пользователь - основной объект, с которым связаны все остальные (через внешние ключи)
-
- */
+/* пользователь - основной объект, с которым связаны все остальные (через внешние ключи) */
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -19,7 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "user_data", schema = "todolist", catalog = "postgres")
+@Table(name = "user_data", schema = "users", catalog = "planner-users")
 @Setter
 @Getter
 @AllArgsConstructor
@@ -28,25 +22,31 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "email")
     private String email;
 
-    private String username;
+    @Column(name = "user_name")
+    private String userName;
 
-    @Column(name = "userpassword")
+    @Column(name = "user_password")
     private String password;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToMany(mappedBy = "users")
     private Set<Role> roles;
 
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final User user = (User) o;
         return id.equals(user.id);
     }
 
@@ -57,6 +57,6 @@ public class User {
 
     @Override
     public String toString() {
-        return username;
+        return userName;
     }
 }

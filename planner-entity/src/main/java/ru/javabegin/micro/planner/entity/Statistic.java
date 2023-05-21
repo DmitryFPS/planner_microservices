@@ -1,7 +1,5 @@
 package ru.javabegin.micro.planner.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,22 +8,19 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Objects;
 
-/*
-
-общая статистика по задачам (незвисимо от категорий задач)
-
- */
+/* общая статистика по задачам (незвисимо от категорий задач) */
 
 @Entity
-@Table(name = "stat", schema = "todolist", catalog = "postgres")
+@Table(name = "statistic", schema = "todo", catalog = "planner-todo")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-public class Stat { // в этой таблице всего 1 запись, которая обновляется (но никогда не удаляется)
+public class Statistic { // в этой таблице всего 1 запись, которая обновляется (но никогда не удаляется)
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "completed_total", updatable = false)
@@ -40,15 +35,19 @@ public class Stat { // в этой таблице всего 1 запись, к�
 //    @JoinColumn(name = "user_id", referencedColumnName = "id") // по каким полям связывать (foreign key)
 //    private User user;
 
-    @Column(name="user_id")
+    @Column(name = "user_id")
     private Long userId;
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Stat stat = (Stat) o;
-        return id.equals(stat.id);
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Statistic statistic = (Statistic) o;
+        return id.equals(statistic.id);
     }
 
     @Override
