@@ -82,7 +82,7 @@ public class TaskController {
         final String title = taskSearchValues.getTitle() != null ? taskSearchValues.getTitle() : null;
 
         // конвертируем Boolean в Integer
-        final Boolean completed = taskSearchValues.getCompleted() != null && taskSearchValues.getCompleted() == 1;
+        final Integer completed = taskSearchValues.getCompleted() != null ? taskSearchValues.getCompleted() : null;
 
         final Long priorityId = taskSearchValues.getPriorityId() != null ? taskSearchValues.getPriorityId() : null;
         final Long categoryId = taskSearchValues.getCategoryId() != null ? taskSearchValues.getCategoryId() : null;
@@ -90,8 +90,8 @@ public class TaskController {
         final String sortColumn = taskSearchValues.getSortColumn() != null ? taskSearchValues.getSortColumn() : null;
         final String sortDirection = taskSearchValues.getSortDirection() != null ? taskSearchValues.getSortDirection() : null;
 
-        final Integer pageNumber = taskSearchValues.getPageNumber() != null ? taskSearchValues.getPageNumber() : null;
-        final Integer pageSize = taskSearchValues.getPageSize() != null ? taskSearchValues.getPageSize() : null;
+        final int pageNumber = taskSearchValues.getPageNumber() != null ? taskSearchValues.getPageNumber() : 0; // Если не указали номер страницы то будет номер страницы по умолчанию 0
+        final int pageSize = taskSearchValues.getPageSize() != null ? taskSearchValues.getPageSize() : 10; // Если указали количество записей на странице то выводим данное количество записей иначе выводим 10 (будет дефолтом)
 
         final Long userId = taskSearchValues.getUserId() != null ? taskSearchValues.getUserId() : null;
 

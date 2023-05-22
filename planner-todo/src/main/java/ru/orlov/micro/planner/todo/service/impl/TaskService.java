@@ -38,7 +38,7 @@ public class TaskService {
 
     @Cacheable(cacheNames = "tasks")
     public Page<Task> findByParams(final String text,
-                                   final Boolean completed,
+                                   final Integer completed,
                                    final Long priorityId,
                                    final Long categoryId,
                                    final Long userId,
