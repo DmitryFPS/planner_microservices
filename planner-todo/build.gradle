@@ -10,6 +10,9 @@ sourceCompatibility = '11'
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'planner-entity'
+    }
 }
 
 ext {
@@ -28,6 +31,10 @@ dependencies {
     // драйвер БД
     runtimeOnly 'org.postgresql:postgresql'
 
+    // lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 dependencyManagement {
