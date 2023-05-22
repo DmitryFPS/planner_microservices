@@ -9,24 +9,22 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.Objects;
 
-/* Вся активность пользователя (активация аккаунта, другие действия по необходимости) */
-
 @Entity
 @Table(name = "activity", schema = "todo", catalog = "planner-todo")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-public class Activity { // название таблицы будет браться автоматически по названию класса с маленькой буквы: activity
+public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Type(type = "org.hibernate.type.NumericBooleanType") // для автоматической конвертации числа в true/false
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     @Column(name = "activated")
-    private Boolean activated; // становится true только после подтверждения активации пользователем (обратно false уже стать не может по логике)
+    private Boolean activated;
 
     @Column(name = "uuid", updatable = false)
     private String uuid; // создается только один раз с помощью триггера в БД

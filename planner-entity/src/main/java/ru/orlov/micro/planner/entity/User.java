@@ -1,7 +1,5 @@
 package ru.orlov.micro.planner.entity;
 
-/* пользователь - основной объект, с которым связаны все остальные (через внешние ключи) */
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -8,15 +8,13 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Objects;
 
-/* общая статистика по задачам (незвисимо от категорий задач) */
-
 @Entity
 @Table(name = "statistic", schema = "todo", catalog = "planner-todo")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-public class Statistic { // в этой таблице всего 1 запись, которая обновляется (но никогда не удаляется)
+public class Statistic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,11 +9,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-/*
-справочноное значение - приоритет пользователя
-может использовать для своих задач
- */
-
 @Entity
 @Table(name = "priority", schema = "todo", catalog = "planner-todo")
 @NoArgsConstructor
@@ -22,8 +17,6 @@ import java.util.Objects;
 @Getter
 public class Priority implements Serializable {
 
-    // указываем, что поле заполняется в БД
-    // нужно, когда добавляем новый объект и он возвращается уже с новым id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -37,7 +30,7 @@ public class Priority implements Serializable {
 
 //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id", referencedColumnName = "id") // по каким полям связывать (foreign key)
+//    @JoinColumn(name = "user_id", referencedColumnName = "id")
 //    private User user;
 
     @Column(name = "user_id")

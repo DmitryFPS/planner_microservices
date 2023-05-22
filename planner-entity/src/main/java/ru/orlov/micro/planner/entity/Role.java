@@ -10,8 +10,6 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
-/* Все доступные роли, которые будут привязаны к пользователю */
-
 @Entity
 @Table(name = "role_data", schema = "users", catalog = "planner-users")
 @NoArgsConstructor
@@ -26,7 +24,7 @@ public class Role {
     private Long id;
 
     @Column(name = "name")
-    private String name; // название роли
+    private String name;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToMany(fetch = FetchType.LAZY)

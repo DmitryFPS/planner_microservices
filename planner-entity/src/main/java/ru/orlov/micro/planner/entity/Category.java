@@ -9,12 +9,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-/*
-справочноное значение - категория пользователя
-может использовать для своих задач
-содержит статистику по каждой категории
- */
-
 @Entity
 @Table(name = "category", schema = "todo", catalog = "planner-todo")
 @NoArgsConstructor
@@ -22,9 +16,6 @@ import java.util.Objects;
 @Setter
 @Getter
 public class Category implements Serializable {
-
-    // указываем, что поле заполняется в БД
-    // нужно, когда добавляем новый объект и он возвращается уже с новым id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
