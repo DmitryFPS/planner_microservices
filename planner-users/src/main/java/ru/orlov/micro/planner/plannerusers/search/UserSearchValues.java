@@ -1,4 +1,4 @@
-package ru.orlov.app.plannerusers.search;
+package ru.orlov.micro.planner.plannerusers.search;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

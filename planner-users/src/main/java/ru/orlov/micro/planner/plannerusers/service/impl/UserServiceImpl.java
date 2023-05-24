@@ -1,12 +1,12 @@
-package ru.orlov.app.plannerusers.service.impl;
+package ru.orlov.micro.planner.plannerusers.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import ru.orlov.app.plannerusers.repository.UserRepository;
-import ru.orlov.app.plannerusers.service.interfaces.UserService;
 import ru.orlov.micro.planner.entity.User;
+import ru.orlov.micro.planner.plannerusers.repository.UserRepository;
+import ru.orlov.micro.planner.plannerusers.service.interfaces.UserService;
 
 import javax.transaction.Transactional;
 

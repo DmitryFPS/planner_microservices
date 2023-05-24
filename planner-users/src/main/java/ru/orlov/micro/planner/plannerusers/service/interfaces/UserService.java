@@ -1,4 +1,4 @@
-package ru.orlov.app.plannerusers.service.interfaces;
+package ru.orlov.micro.planner.plannerusers.service.interfaces;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

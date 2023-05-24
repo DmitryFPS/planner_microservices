@@ -1,4 +1,4 @@
-package ru.orlov.app.plannerusers.restController;
+package ru.orlov.micro.planner.plannerusers.restController;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -8,14 +8,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.orlov.app.plannerusers.search.UserSearchValues;
-import ru.orlov.app.plannerusers.service.interfaces.UserService;
 import ru.orlov.micro.planner.entity.User;
+import ru.orlov.micro.planner.plannerusers.search.UserSearchValues;
+import ru.orlov.micro.planner.plannerusers.service.interfaces.UserService;
 
 import java.util.NoSuchElementException;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/user")
 public class UserController {
 
     public static final String ID_COLUMN = "id";

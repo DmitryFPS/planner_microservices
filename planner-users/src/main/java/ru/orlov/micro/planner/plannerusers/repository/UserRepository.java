@@ -1,4 +1,4 @@
-package ru.orlov.app.plannerusers.repository;
+package ru.orlov.micro.planner.plannerusers.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
