@@ -2,7 +2,7 @@ package ru.orlov.micro.planner.todo.service.impl;
 
 import org.springframework.stereotype.Service;
 import ru.orlov.micro.planner.entity.Statistic;
-import ru.orlov.micro.planner.todo.dao.interfaces.StatisticRepository;
+import ru.orlov.micro.planner.todo.repository.StatisticRepository;
 
 import javax.transaction.Transactional;
 

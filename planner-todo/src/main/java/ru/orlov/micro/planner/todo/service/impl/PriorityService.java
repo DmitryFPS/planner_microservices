@@ -3,7 +3,7 @@ package ru.orlov.micro.planner.todo.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.orlov.micro.planner.entity.Priority;
-import ru.orlov.micro.planner.todo.dao.interfaces.PriorityRepository;
+import ru.orlov.micro.planner.todo.repository.PriorityRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;

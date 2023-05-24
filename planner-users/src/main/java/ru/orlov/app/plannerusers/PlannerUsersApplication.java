@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableDiscoveryClient
 @ComponentScan(basePackages = {"ru.orlov.micro.planner"})
-@EnableJpaRepositories(basePackages = {"ru.orlov.app.plannerusers.dao"})
+@EnableJpaRepositories(basePackages = {"ru.orlov.app.plannerusers.repository"})
 @EntityScan(basePackages = {"ru.orlov.micro.planner.entity"})
 public class PlannerUsersApplication {
     public static void main(String[] args) {

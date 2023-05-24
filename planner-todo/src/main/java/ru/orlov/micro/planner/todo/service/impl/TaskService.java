@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.orlov.micro.planner.entity.Task;
-import ru.orlov.micro.planner.todo.dao.interfaces.TaskRepository;
+import ru.orlov.micro.planner.todo.repository.TaskRepository;
 
 import javax.transaction.Transactional;
 import java.util.Date;

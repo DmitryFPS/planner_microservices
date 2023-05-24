@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.orlov.micro.planner.entity.Category;
-import ru.orlov.micro.planner.todo.dao.interfaces.CategoryRepository;
+import ru.orlov.micro.planner.todo.repository.CategoryRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;

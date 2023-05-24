@@ -1,4 +1,4 @@
-package ru.orlov.micro.planner.todo.dao.interfaces;
+package ru.orlov.micro.planner.todo.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
