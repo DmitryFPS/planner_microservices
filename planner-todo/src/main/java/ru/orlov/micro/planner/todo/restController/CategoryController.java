@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.orlov.micro.planner.entity.Category;
+import ru.orlov.micro.planner.entity.User;
+import ru.orlov.micro.planner.todo.feign.UserFeignClient;
 import ru.orlov.micro.planner.todo.search.CategorySearchValues;
 import ru.orlov.micro.planner.todo.service.impl.CategoryService;
 
@@ -18,6 +20,12 @@ import java.util.NoSuchElementException;
 public class CategoryController {
 
     private final CategoryService categoryService;
+
+    private final UserFeignClient client;
+
+//    private final WebClientImpl client;
+
+//    private final UserRestBuilder userRestBuilder;
 
     @PostMapping("/all")
     public List<Category> findAll(@RequestBody final Long id) {
@@ -32,7 +40,31 @@ public class CategoryController {
         if (category.getTitle() == null || category.getTitle().trim().length() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-        return ResponseEntity.ok(categoryService.add(category));
+
+//        // Пример применения restTemplate
+//        if (userRestBuilder.userExists(category.getUserId())) { // вызываем микросервис из другого модуля
+//            return ResponseEntity.ok(categoryService.add(category)); // возвращаем добавленный объект с заполненным ID
+//        }
+
+//        // Пример применения для WebClient синхронно
+//        if (client.userExistMono(category.getUserId())) { // вызываем микросервис из другого модуля
+//            return ResponseEntity.ok(categoryService.add(category)); // возвращаем добавленный объект с заполненным ID
+//        }
+
+//        // Пример применения для WebClient асинхронно (subscribe тут мы подписываемся на событие на результат выполнения)
+//        // Данный запрос будет выполнен почти со 100 % гарантией. Если сервис будет не доступен то он будет выполнен когда сервис освободится
+//        client.userExistFlux(category.getUserId()).subscribe(System.out::println);
+
+        // Пример применения для FeignClient синхронно
+        final ResponseEntity<User> user = client.findUserById(category.getUserId());
+        if (user.getBody() != null) {
+            return ResponseEntity.ok(categoryService.add(category)); // возвращаем добавленный объект с заполненным ID
+        }
+
+        // если пользователя НЕ существует
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+
+//        return ResponseEntity.ok(categoryService.add(category));
     }
 
     @PutMapping("/update")

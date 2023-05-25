@@ -1,22 +1,19 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.6.15'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'org.springframework.boot' version '2.6.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
-group = 'ru.orlov.app'
+group = 'ru.orlov.micro.planner'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
-	flatDir {
-		dirs 'planner-entity'
-	}
 }
 
 ext {
-	set('springCloudVersion', "2021.0.3")
+	set('springCloudVersion', "2021.0.0")
 }
 
 dependencies {

@@ -92,10 +92,14 @@ public class UserController {
     public ResponseEntity<User> findById(@RequestBody final Long id) {
         User user;
         try {
+//            Thread.sleep(10_000L); // для имитации временного не доступа к сервису
             user = service.findById(id);
         } catch (final NoSuchElementException ext) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
+//        catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         return ResponseEntity.ok(user);
     }
 
