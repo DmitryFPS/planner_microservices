@@ -57,7 +57,7 @@ public class CategoryController {
 
         // Пример применения для FeignClient синхронно
         final ResponseEntity<User> user = client.findUserById(category.getUserId());
-        if (user.getBody() != null) {
+        if (user != null && user.getBody() != null) {
             return ResponseEntity.ok(categoryService.add(category)); // возвращаем добавленный объект с заполненным ID
         }
 
