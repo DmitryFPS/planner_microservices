@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.orlov.micro.planner.entity.User;
+import ru.orlov.micro.planner.plannerusers.mq.impl.MessageProducer;
 import ru.orlov.micro.planner.plannerusers.search.UserSearchValues;
 import ru.orlov.micro.planner.plannerusers.service.interfaces.UserService;
 
@@ -21,6 +22,7 @@ public class UserController {
 
     public static final String ID_COLUMN = "id";
     private final UserService service;
+    private final MessageProducer messageProducer;
 
     @PostMapping("/add")
     public ResponseEntity<User> add(@RequestBody final User user) {
@@ -48,7 +50,10 @@ public class UserController {
 
         addingUser = service.add(user);
 
-
+        // Проверяем есть ли юзер для RabbitMQ что бы сделать согласованность данных и отправить ид в теле сообщения для БМ
+        if (addingUser != null) {
+            messageProducer.newUserAction(addingUser.getId());
+        }
 
         return ResponseEntity.ok(addingUser);
     }
