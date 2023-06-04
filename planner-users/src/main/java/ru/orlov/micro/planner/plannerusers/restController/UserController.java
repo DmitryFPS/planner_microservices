@@ -24,6 +24,8 @@ public class UserController {
 
     @PostMapping("/add")
     public ResponseEntity<User> add(@RequestBody final User user) {
+        User addingUser;
+
         if (user.getId() != null && user.getId() != 0) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -36,12 +38,18 @@ public class UserController {
         if (user.getPassword() == null || user.getPassword().trim().length() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-        User addingUser;
-        try {
-            addingUser = service.add(user);
-        } catch (final EmptyResultDataAccessException ext) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+
+//        User addingUser;
+//        try {
+//            addingUser = service.add(user);
+//        } catch (final EmptyResultDataAccessException ext) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+
+        addingUser = service.add(user);
+
+
+
         return ResponseEntity.ok(addingUser);
     }
 
