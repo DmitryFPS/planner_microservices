@@ -11,7 +11,7 @@ import ru.orlov.micro.planner.todo.service.impl.TestDataService;
 @EnableBinding(TodoBinding.class)
 @Component
 public class MessageConsumer {
-    private TestDataService dataService;
+    private final TestDataService dataService;
 
     @StreamListener(target = TodoBinding.INPUT_CHANNEL)
     public void initTestData(final Long id) {

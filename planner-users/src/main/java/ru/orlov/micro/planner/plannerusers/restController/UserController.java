@@ -51,8 +51,9 @@ public class UserController {
         addingUser = service.add(user);
 
         // Проверяем есть ли юзер для RabbitMQ что бы сделать согласованность данных и отправить ид в теле сообщения для БМ
+        // Отправляем в БМ сообщение в теле запроса
         if (addingUser != null) {
-            messageProducer.newUserAction(addingUser.getId());
+            messageProducer.initUserAction(addingUser.getId());
         }
 
         return ResponseEntity.ok(addingUser);

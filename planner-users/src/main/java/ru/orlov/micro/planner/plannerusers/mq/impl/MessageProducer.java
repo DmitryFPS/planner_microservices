@@ -13,7 +13,7 @@ import ru.orlov.micro.planner.plannerusers.mq.channels.TodoBinding;
 public class MessageProducer {
     private final TodoBinding todoBinding;
 
-    public void newUserAction(final Long id) {
+    public void initUserAction(final Long id) {
         final Message<Long> message = MessageBuilder.withPayload(id).build();
         todoBinding.todoOutputChannel().send(message);
     }
