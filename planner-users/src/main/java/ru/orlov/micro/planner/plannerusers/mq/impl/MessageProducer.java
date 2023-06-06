@@ -13,6 +13,7 @@ import ru.orlov.micro.planner.plannerusers.mq.channels.TodoBinding;
 public class MessageProducer {
     private final TodoBinding todoBinding;
 
+    // Помещаем в сообщение полезную нагрузку и отправляем в RabbitMq
     public void initUserAction(final Long id) {
         final Message<Long> message = MessageBuilder.withPayload(id).build();
         todoBinding.todoOutputChannel().send(message);

@@ -13,6 +13,7 @@ import ru.orlov.micro.planner.todo.service.impl.TestDataService;
 public class MessageConsumer {
     private final TestDataService dataService;
 
+    // Автоматически будет вызван, когда в очередь попадет сообщение для входного канала todoInputChannel
     @StreamListener(target = TodoBinding.INPUT_CHANNEL)
     public void initTestData(final Long id) {
         dataService.initTestData(id);
