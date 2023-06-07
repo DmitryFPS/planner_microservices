@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.orlov.micro.planner.entity.Category;
 import ru.orlov.micro.planner.entity.Priority;
 import ru.orlov.micro.planner.entity.Task;
-import ru.orlov.micro.planner.todo.mq.impl.MessageProducer;
+import ru.orlov.micro.planner.todo.mq.legacy.impl.MessageProducer;
 import ru.orlov.micro.planner.utils.tuple.Pair;
 
 import java.util.Calendar;
@@ -89,7 +89,7 @@ public class TestDataService {
 //        } catch (Exception ext) {
 //            hasError = true;
 //        }
-        final Pair<Boolean, Long> pair = new Pair<>(false, userId);
-        producer.checkAddUser(pair);
+//        final Pair<Boolean, Long> pair = new Pair<>(false, userId);
+//        producer.checkAddUser(pair);
     }
 }

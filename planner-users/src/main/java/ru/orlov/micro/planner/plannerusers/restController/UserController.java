@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.orlov.micro.planner.entity.User;
-import ru.orlov.micro.planner.plannerusers.mq.impl.MessageProducer;
+import ru.orlov.micro.planner.plannerusers.mq.legacy.impl.MessageProducer;
 import ru.orlov.micro.planner.plannerusers.search.UserSearchValues;
 import ru.orlov.micro.planner.plannerusers.service.interfaces.UserService;
 
@@ -26,8 +26,6 @@ public class UserController {
 
     @PostMapping("/add")
     public ResponseEntity<User> add(@RequestBody final User user) {
-        User addingUser;
-
         if (user.getId() != null && user.getId() != 0) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -41,20 +39,19 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
 
-//        User addingUser;
-//        try {
-//            addingUser = service.add(user);
-//        } catch (final EmptyResultDataAccessException ext) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
+        User addingUser;
+        try {
+            addingUser = service.add(user);
+        } catch (final EmptyResultDataAccessException ext) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
-        addingUser = service.add(user);
-
+//        addingUser = service.add(user);
         // Проверяем есть ли юзер для RabbitMQ что бы сделать согласованность данных и отправить ид в теле сообщения для БМ
         // Отправляем в БМ сообщение в теле запроса
-        if (addingUser != null) {
-            messageProducer.initUserAction(addingUser.getId());
-        }
+//        if (addingUser != null) {
+//            messageProducer.initUserAction(addingUser.getId());
+//        }
 
         return ResponseEntity.ok(addingUser);
     }
