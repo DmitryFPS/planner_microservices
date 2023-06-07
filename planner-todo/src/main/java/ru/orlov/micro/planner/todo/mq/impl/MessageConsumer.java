@@ -15,8 +15,7 @@ public class MessageConsumer {
 
     // Автоматически будет вызван, когда в очередь попадет сообщение для входного канала todoInputChannel
     @StreamListener(target = TodoBinding.INPUT_CHANNEL)
-    public void initTestData(final Long id) throws Exception {
-        throw new Exception("Test DLQ");
-//        dataService.initTestData(id);
+    public void initTestData(final Long id) {
+        dataService.initTestData(id);
     }
 }

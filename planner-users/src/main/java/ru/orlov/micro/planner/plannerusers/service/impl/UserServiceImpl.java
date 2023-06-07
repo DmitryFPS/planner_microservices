@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.orlov.micro.planner.entity.User;
 import ru.orlov.micro.planner.plannerusers.repository.UserRepository;
 import ru.orlov.micro.planner.plannerusers.service.interfaces.UserService;
+import ru.orlov.micro.planner.utils.tuple.Pair;
 
 import javax.transaction.Transactional;
 
@@ -52,5 +53,12 @@ public class UserServiceImpl implements UserService {
                                   final String username,
                                   final PageRequest pageRequest) {
         return repository.findByParams(email, username, pageRequest);
+    }
+
+    @Override
+    public void deleteUserIsException(Pair<Boolean, Long> p) {
+        if (p.getFirst()) {
+            repository.deleteById(p.getSecond());
+        }
     }
 }

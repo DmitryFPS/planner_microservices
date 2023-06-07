@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.orlov.micro.planner.entity.Category;
 import ru.orlov.micro.planner.entity.Priority;
 import ru.orlov.micro.planner.entity.Task;
+import ru.orlov.micro.planner.todo.mq.impl.MessageProducer;
+import ru.orlov.micro.planner.utils.tuple.Pair;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -17,7 +19,10 @@ public class TestDataService {
     private final PriorityService priorityService;
     private final CategoryService categoryService;
 
+    private final MessageProducer producer;
+
     public void initTestData(final Long userId) {
+
         final Priority prior1 = new Priority();
         prior1.setColor("#fff");
         prior1.setTitle("Важный");
@@ -75,5 +80,16 @@ public class TestDataService {
 
         taskService.add(task1);
         taskService.add(task2);
+
+
+        // Для отката юзера в случае ошибки (Тест)
+//        boolean hasError = false;
+//        try {
+//            throw new Exception("Test");
+//        } catch (Exception ext) {
+//            hasError = true;
+//        }
+        final Pair<Boolean, Long> pair = new Pair<>(false, userId);
+        producer.checkAddUser(pair);
     }
 }

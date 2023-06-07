@@ -3,6 +3,7 @@ package ru.orlov.micro.planner.plannerusers.service.interfaces;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import ru.orlov.micro.planner.entity.User;
+import ru.orlov.micro.planner.utils.tuple.Pair;
 
 public interface UserService {
     User add(final User user);
@@ -20,4 +21,6 @@ public interface UserService {
     Page<User> findByParam(final String email,
                            final String username,
                            final PageRequest pageRequest);
+
+    void deleteUserIsException(final Pair<Boolean, Long> p);
 }
