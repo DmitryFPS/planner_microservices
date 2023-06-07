@@ -6,7 +6,6 @@ import ru.orlov.micro.planner.entity.Category;
 import ru.orlov.micro.planner.entity.Priority;
 import ru.orlov.micro.planner.entity.Task;
 import ru.orlov.micro.planner.todo.mq.legacy.impl.MessageProducer;
-import ru.orlov.micro.planner.utils.tuple.Pair;
 
 import java.util.Calendar;
 import java.util.Date;

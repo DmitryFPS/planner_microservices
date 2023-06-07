@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.orlov.micro.planner.entity.User;
+import ru.orlov.micro.planner.plannerusers.mq.func.MessageFuncAction;
 import ru.orlov.micro.planner.plannerusers.mq.legacy.impl.MessageProducer;
 import ru.orlov.micro.planner.plannerusers.search.UserSearchValues;
 import ru.orlov.micro.planner.plannerusers.service.interfaces.UserService;
@@ -23,6 +24,7 @@ public class UserController {
     public static final String ID_COLUMN = "id";
     private final UserService service;
     private final MessageProducer messageProducer;
+    private final MessageFuncAction messageFuncAction;
 
     @PostMapping("/add")
     public ResponseEntity<User> add(@RequestBody final User user) {
@@ -40,19 +42,26 @@ public class UserController {
         }
 
         User addingUser;
-        try {
-            addingUser = service.add(user);
-        } catch (final EmptyResultDataAccessException ext) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+//        try {
+//            addingUser = service.add(user);
+//        } catch (final EmptyResultDataAccessException ext) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
 
-//        addingUser = service.add(user);
         // Проверяем есть ли юзер для RabbitMQ что бы сделать согласованность данных и отправить ид в теле сообщения для БМ
         // Отправляем в БМ сообщение в теле запроса
 //        if (addingUser != null) {
 //            messageProducer.initUserAction(addingUser.getId());
 //        }
 
+
+
+        addingUser = service.add(user);
+
+        // Тут проверяем что юзер создался и передаем в MessageFuncAction что бы потом передать в innerBus а он в свою очередь передаст в Supplier и дальше в SCS
+        if (addingUser != null) {
+            messageFuncAction.sendNewUserMessage(addingUser.getId());
+        }
         return ResponseEntity.ok(addingUser);
     }
 
