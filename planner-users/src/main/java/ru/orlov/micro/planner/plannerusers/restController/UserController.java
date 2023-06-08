@@ -23,7 +23,7 @@ public class UserController {
 
     public static final String ID_COLUMN = "id";
     private final UserService service;
-    private final MessageProducer messageProducer;
+//    private final MessageProducer messageProducer;
     private final MessageFuncAction messageFuncAction;
 
     @PostMapping("/add")

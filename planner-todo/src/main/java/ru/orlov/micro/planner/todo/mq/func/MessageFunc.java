@@ -18,8 +18,14 @@ public class MessageFunc { // Канал для принятия сообщен�
     private final TestDataService dataService;
 
     // Этот бин будет получать сообщение и вызывать сервис с методом создания тестовых данных и передавать в него id Юзера и тем самым инициировать создание тестовых данных
-    @Bean
-    public Consumer<Message<Long>> newUserActionConsumer() {
-        return message -> dataService.initTestData(message.getPayload());
+    @Bean(name = "newUserActionConsumer")
+    public Consumer<Message<Long>> newUserActionConsumer()  {
+        return message -> {
+            try {
+                dataService.initTestData(message.getPayload());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        };
     }
 }
