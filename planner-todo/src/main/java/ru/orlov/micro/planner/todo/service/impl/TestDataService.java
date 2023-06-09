@@ -1,6 +1,7 @@
 package ru.orlov.micro.planner.todo.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import ru.orlov.micro.planner.entity.Category;
 import ru.orlov.micro.planner.entity.Priority;
@@ -18,7 +19,8 @@ public class TestDataService {
     private final CategoryService categoryService;
 //    private final MessageProducer producer;
 
-    public void initTestData(final Long userId) throws Exception {
+    @KafkaListener(topics = "name-topic")
+    public void initTestData(final Long userId) {
 
         final Priority prior1 = new Priority();
         prior1.setColor("#fff");
