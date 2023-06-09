@@ -1,8 +1,8 @@
 package ru.orlov.micro.planner.plannerusers.mq.legacy.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.annotation.StreamListener;
+//import org.springframework.cloud.stream.annotation.EnableBinding;
+//import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.stereotype.Component;
 import ru.orlov.micro.planner.plannerusers.mq.legacy.channels.TodoBinding;
 import ru.orlov.micro.planner.plannerusers.service.impl.UserServiceImpl;

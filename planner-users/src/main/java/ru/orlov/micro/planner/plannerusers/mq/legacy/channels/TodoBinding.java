@@ -1,8 +1,8 @@
 package ru.orlov.micro.planner.plannerusers.mq.legacy.channels;
 
-import org.springframework.cloud.stream.annotation.Input;
-import org.springframework.cloud.stream.annotation.Output;
-import org.springframework.messaging.MessageChannel;
+//import org.springframework.cloud.stream.annotation.Input;
+//import org.springframework.cloud.stream.annotation.Output;
+//import org.springframework.messaging.MessageChannel;
 
 public interface TodoBinding {
 //    String OUTPUT_CHANNEL = "todoOutputChannel";
