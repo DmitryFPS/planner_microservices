@@ -24,7 +24,7 @@ public class UserController {
     public static final String ID_COLUMN = "id";
     private final UserService service;
 //    private final MessageProducer messageProducer;
-    private final MessageFuncAction messageFuncAction;
+//    private final MessageFuncAction messageFuncAction;
 
     @PostMapping("/add")
     public ResponseEntity<User> add(@RequestBody final User user) {
@@ -42,11 +42,11 @@ public class UserController {
         }
 
         User addingUser;
-//        try {
-//            addingUser = service.add(user);
-//        } catch (final EmptyResultDataAccessException ext) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
+        try {
+            addingUser = service.add(user);
+        } catch (final EmptyResultDataAccessException ext) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         // Проверяем есть ли юзер для RabbitMQ что бы сделать согласованность данных и отправить ид в теле сообщения для БМ
         // Отправляем в БМ сообщение в теле запроса
@@ -56,12 +56,13 @@ public class UserController {
 
 
 
-        addingUser = service.add(user);
+//        addingUser = service.add(user);
 
+        // RabbitMq
         // Тут проверяем что юзер создался и передаем в MessageFuncAction что бы потом передать в innerBus а он в свою очередь передаст в Supplier и дальше в SCS
-        if (addingUser != null) {
-            messageFuncAction.sendNewUserMessage(addingUser.getId());
-        }
+//        if (addingUser != null) {
+//            messageFuncAction.sendNewUserMessage(addingUser.getId());
+//        }
         return ResponseEntity.ok(addingUser);
     }
 

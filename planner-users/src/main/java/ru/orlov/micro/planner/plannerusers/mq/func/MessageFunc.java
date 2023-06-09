@@ -11,17 +11,17 @@ import reactor.util.concurrent.Queues;
 
 import java.util.function.Supplier;
 
-@Getter
-@RequiredArgsConstructor
-@Configuration
+//@Getter
+//@RequiredArgsConstructor
+//@Configuration
 public class MessageFunc {
 
     // Создаем внутреннюю шину в которую будем класть сообщение и которая будет сигнализировать что есть сообщение для отправки
-    private final Sinks.Many<Message<Long>> innerBus = Sinks.many().multicast().onBackpressureBuffer(Queues.SMALL_BUFFER_SIZE, false);
+//    private final Sinks.Many<Message<Long>> innerBus = Sinks.many().multicast().onBackpressureBuffer(Queues.SMALL_BUFFER_SIZE, false);
 
     // Создаем бин который Supplier будет автоматом перехватывать внутреннюю шину с сообщением если оно есть и отправлять в SCS
-    @Bean
-    public Supplier<Flux<Message<Long>>> newUserActionProducer() {
-        return innerBus::asFlux;
-    }
+//    @Bean
+//    public Supplier<Flux<Message<Long>>> newUserActionProducer() {
+//        return innerBus::asFlux;
+//    }
 }

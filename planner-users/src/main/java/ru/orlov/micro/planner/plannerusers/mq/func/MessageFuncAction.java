@@ -6,15 +6,15 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Sinks;
 
-@Getter
-@RequiredArgsConstructor
-@Service
+//@Getter
+//@RequiredArgsConstructor
+//@Service
 public class MessageFuncAction {
     // Канал с сообщениями
-    private final MessageFunc messageFunc;
+//    private final MessageFunc messageFunc;
 
     // Будем вызывать данный метод в контроллере что бы в него положить id Юзера что бы сообщением отправить в innerBus и потом в Supplier
-    public void sendNewUserMessage(final Long id) {
-        messageFunc.getInnerBus().emitNext(MessageBuilder.withPayload(id).build(), Sinks.EmitFailureHandler.FAIL_FAST);
-    }
+//    public void sendNewUserMessage(final Long id) {
+//        messageFunc.getInnerBus().emitNext(MessageBuilder.withPayload(id).build(), Sinks.EmitFailureHandler.FAIL_FAST);
+//    }
 }
