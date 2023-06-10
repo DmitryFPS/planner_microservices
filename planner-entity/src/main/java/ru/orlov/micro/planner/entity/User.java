@@ -26,10 +26,10 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "user_name")
+    @Column(name = "username")
     private String userName;
 
-    @Column(name = "user_password")
+    @Column(name = "userpassword")
     private String password;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

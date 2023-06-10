@@ -22,7 +22,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/user")
 public class UserController {
 
-    private static final String NAME_TOPIC = "name-topic";
+    private static final String NAME_TOPIC = "my-topic";
 
     public static final String ID_COLUMN = "id";
     private final UserService service;

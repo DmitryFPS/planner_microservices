@@ -19,7 +19,8 @@ public class PriorityService {
     }
 
     public Priority add(final Priority priority) {
-        return repository.save(priority);
+        final Priority priority1 = repository.save(priority);
+        return priority1;
     }
 
     public Priority update(final Priority priority) {

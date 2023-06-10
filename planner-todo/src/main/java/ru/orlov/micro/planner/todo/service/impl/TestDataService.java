@@ -19,7 +19,7 @@ public class TestDataService {
     private final CategoryService categoryService;
 //    private final MessageProducer producer;
 
-    @KafkaListener(topics = "name-topic")
+    @KafkaListener(topics = "my-topic")
     public void initTestData(final Long userId) {
 
         final Priority prior1 = new Priority();

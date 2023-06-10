@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "statistic", schema = "todo", catalog = "planner-todo")
+@Table(name = "stat", schema = "todo", catalog = "planner-todo")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter

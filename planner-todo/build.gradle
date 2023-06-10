@@ -18,9 +18,9 @@ ext {
 
 dependencies {
     // Тут есть RestTemplate
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
     // Для Feign Client
-    implementation 'org.springframework.cloud:spring-cloud-starter-feign:+'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-feign:+'
 
     // Для Circuit Breakers
     implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j:+'
@@ -33,6 +33,8 @@ dependencies {
     implementation 'ru.orlov.micro.planner:planner-entity'
     implementation 'ru.orlov.micro.planner:planner-utils'
     implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.postgresql:postgresql:42.5.1'
+
 //    implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit:3.2.1'
 
     // драйвер БД
