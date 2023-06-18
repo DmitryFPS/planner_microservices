@@ -100,10 +100,11 @@ public class TaskController {
         final int pageSize = taskSearchValues.getPageSize() != null ? taskSearchValues.getPageSize() : 10; // Если указали количество записей на странице то выводим данное количество записей иначе выводим 10 (будет дефолтом)
 
         taskSearchValues.setUserId(jwt.getSubject());
-        final String userId = (taskSearchValues.getUserId() == null || taskSearchValues.getUserId().isEmpty()) ? null : taskSearchValues.getUserId();
+        final String userId = taskSearchValues.getUserId();
+//        final String userId = (taskSearchValues.getUserId() == null || taskSearchValues.getUserId().isEmpty()) ? null : taskSearchValues.getUserId();
 
         // проверка на обязательные параметры
-        if (userId == null) {
+        if (userId == null || userId.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
 
