@@ -17,5 +17,5 @@ public interface PriorityRepository extends JpaRepository<Priority, Long> {
             " or lower(p.title) like lower(concat('%', :title,'%'))) " +
             " and p.userId = :id " +
             "order by p.title asc")
-    List<Priority> findByTitle(@Param("title") String title, @Param("id") Long id);
+    List<Priority> findByTitle(@Param("title") String title, @Param("id") String id);
 }

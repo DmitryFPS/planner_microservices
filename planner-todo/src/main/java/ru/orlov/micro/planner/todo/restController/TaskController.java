@@ -7,6 +7,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import ru.orlov.micro.planner.entity.Task;
 import ru.orlov.micro.planner.todo.search.TaskSearchValues;
@@ -32,12 +34,16 @@ public class TaskController {
 
     // добавление
     @PostMapping("/add")
-    public ResponseEntity<Task> add(@RequestBody final Task task) {
+    public ResponseEntity<Task> add(@RequestBody final Task task, @AuthenticationPrincipal final Jwt jwt) {
         if (task.getId() != null && task.getId() != 0) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
         if (task.getTitle() == null || task.getTitle().trim().length() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        task.setUserId(jwt.getSubject());
+        if (task.getUserId() == null || task.getUserId().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(task);
         }
         return ResponseEntity.ok(taskService.add(task));
     }
@@ -76,7 +82,7 @@ public class TaskController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<Page<Task>> search(@RequestBody final TaskSearchValues taskSearchValues) {
+    public ResponseEntity<Page<Task>> search(@RequestBody final TaskSearchValues taskSearchValues, @AuthenticationPrincipal final Jwt jwt) {
 
         // исключить NullPointerException
         final String title = taskSearchValues.getTitle() != null ? taskSearchValues.getTitle() : null;
@@ -93,10 +99,11 @@ public class TaskController {
         final int pageNumber = taskSearchValues.getPageNumber() != null ? taskSearchValues.getPageNumber() : 0; // Если не указали номер страницы то будет номер страницы по умолчанию 0
         final int pageSize = taskSearchValues.getPageSize() != null ? taskSearchValues.getPageSize() : 10; // Если указали количество записей на странице то выводим данное количество записей иначе выводим 10 (будет дефолтом)
 
-        final Long userId = taskSearchValues.getUserId() != null ? taskSearchValues.getUserId() : null;
+        taskSearchValues.setUserId(jwt.getSubject());
+        final String userId = (taskSearchValues.getUserId() == null || taskSearchValues.getUserId().isEmpty()) ? null : taskSearchValues.getUserId();
 
         // проверка на обязательные параметры
-        if (userId == null || userId == 0) {
+        if (userId == null) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
 

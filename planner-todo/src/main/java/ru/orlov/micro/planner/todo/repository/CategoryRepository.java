@@ -18,5 +18,5 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             " or lower(c.title) like lower(concat('%', :title,'%'))) " +
             " and c.userId = :id  " +
             " order by c.title asc")
-    List<Category> findByTitle(@Param("title") final String title, @Param("id") final Long id);
+    List<Category> findByTitle(@Param("title") final String title, @Param("id") final String id);
 }

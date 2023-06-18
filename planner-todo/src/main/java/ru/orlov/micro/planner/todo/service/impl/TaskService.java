@@ -41,7 +41,7 @@ public class TaskService {
                                    final Integer completed,
                                    final Long priorityId,
                                    final Long categoryId,
-                                   final Long userId,
+                                   final String userId,
                                    final Date dateFrom,
                                    final Date dateTo,
                                    final PageRequest paging) {

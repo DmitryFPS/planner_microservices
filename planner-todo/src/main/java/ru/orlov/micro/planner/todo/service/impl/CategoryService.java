@@ -32,7 +32,7 @@ public class CategoryService {
         repository.deleteById(id);
     }
 
-    public List<Category> findByTitle(final String text, final Long id) {
+    public List<Category> findByTitle(final String text, final String id) {
         return repository.findByTitle(text, id);
     }
 

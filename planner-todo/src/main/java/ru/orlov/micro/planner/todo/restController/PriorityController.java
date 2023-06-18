@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import ru.orlov.micro.planner.entity.Priority;
 import ru.orlov.micro.planner.todo.search.PrioritySearchValues;
@@ -25,7 +27,7 @@ public class PriorityController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Priority> add(@RequestBody final Priority priority) {
+    public ResponseEntity<Priority> add(@RequestBody final Priority priority, @AuthenticationPrincipal final Jwt jwt) {
         if (priority.getId() != null && priority.getId() != 0) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -34,6 +36,10 @@ public class PriorityController {
         }
         if (priority.getColor() == null || priority.getColor().trim().length() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        priority.setUserId(jwt.getSubject());
+        if (priority.getUserId() == null || priority.getUserId().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(priority);
         }
         return ResponseEntity.ok(priorityService.add(priority));
     }
@@ -76,8 +82,9 @@ public class PriorityController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<Priority>> search(@RequestBody PrioritySearchValues prioritySearchValues) {
-        if (prioritySearchValues.getUserId() == null || prioritySearchValues.getUserId() == 0) {
+    public ResponseEntity<List<Priority>> search(@RequestBody PrioritySearchValues prioritySearchValues, @AuthenticationPrincipal final Jwt jwt) {
+        prioritySearchValues.setUserId(jwt.getSubject());
+        if (prioritySearchValues.getUserId() == null || prioritySearchValues.getUserId().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
         return ResponseEntity.ok(priorityService.find(prioritySearchValues.getTitle(), prioritySearchValues.getUserId()));

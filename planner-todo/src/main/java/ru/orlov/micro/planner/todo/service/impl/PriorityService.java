@@ -19,8 +19,7 @@ public class PriorityService {
     }
 
     public Priority add(final Priority priority) {
-        final Priority priority1 = repository.save(priority);
-        return priority1;
+        return repository.save(priority);
     }
 
     public Priority update(final Priority priority) {
@@ -35,7 +34,7 @@ public class PriorityService {
         return repository.findById(id).orElse(null);
     }
 
-    public List<Priority> find(final String title, final Long id) {
+    public List<Priority> find(final String title, final String id) {
         return repository.findByTitle(title, id);
     }
 }

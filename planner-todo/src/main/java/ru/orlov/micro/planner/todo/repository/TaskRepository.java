@@ -31,7 +31,7 @@ public interface TaskRepository extends PagingAndSortingRepository<Task, Long> {
                             @Param("completed") final Integer completed,
                             @Param("priorityId") final Long priorityId,
                             @Param("categoryId") final Long categoryId,
-                            @Param("id") final Long id,
+                            @Param("id") final String id,
                             @Param("dateFrom") final Date dateFrom,
                             @Param("dateTo") final Date dateTo,
                             final Pageable pageable

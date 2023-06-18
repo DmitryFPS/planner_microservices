@@ -11,5 +11,5 @@ import lombok.Setter;
 @Setter
 public class CategorySearchValues {
     private String title;
-    private Long userId;
+    private String userId;
 }

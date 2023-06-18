@@ -34,7 +34,7 @@ public class Statistic {
 //    private User user;
 
     @Column(name = "user_id")
-    private Long userId;
+    private String userId;
 
     @Override
     public boolean equals(final Object o) {

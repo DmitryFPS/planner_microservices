@@ -4,9 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import ru.orlov.micro.planner.entity.Category;
-import ru.orlov.micro.planner.entity.User;
 import ru.orlov.micro.planner.todo.feign.UserFeignClient;
 import ru.orlov.micro.planner.todo.search.CategorySearchValues;
 import ru.orlov.micro.planner.todo.service.impl.CategoryService;
@@ -33,7 +34,7 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Category> add(@RequestBody final Category category) {
+    public ResponseEntity<Category> add(@RequestBody final Category category, @AuthenticationPrincipal final Jwt jwt) {
         if (category.getId() != null && category.getId() != 0) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -56,15 +57,21 @@ public class CategoryController {
 //        client.userExistFlux(category.getUserId()).subscribe(System.out::println);
 
         // Пример применения для FeignClient синхронно
-        final ResponseEntity<User> user = client.findUserById(category.getUserId());
-        if (user != null && user.getBody() != null) {
-            return ResponseEntity.ok(categoryService.add(category)); // возвращаем добавленный объект с заполненным ID
-        }
+//        final ResponseEntity<User> user = client.findUserById(category.getUserId());
+//        if (user != null && user.getBody() != null) {
+//            return ResponseEntity.ok(categoryService.add(category)); // возвращаем добавленный объект с заполненным ID
+//        }
 
         // если пользователя НЕ существует
-        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+//        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
 //        return ResponseEntity.ok(categoryService.add(category));
+
+        category.setUserId(jwt.getSubject()); // UUID пользователя из KeyCloak
+        if (category.getUserId() == null || category.getUserId().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(category);
+        }
+        return ResponseEntity.ok(categoryService.add(category));
     }
 
     @PutMapping("/update")
@@ -91,8 +98,9 @@ public class CategoryController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<Category>> search(@RequestBody final CategorySearchValues categorySearchValues) {
-        if (categorySearchValues.getUserId() == null || categorySearchValues.getUserId() == 0) {
+    public ResponseEntity<List<Category>> search(@RequestBody final CategorySearchValues categorySearchValues, @AuthenticationPrincipal final Jwt jwt) {
+        categorySearchValues.setUserId(jwt.getSubject());
+        if (categorySearchValues.getUserId() == null || categorySearchValues.getUserId().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
         List<Category> list = categoryService.findByTitle(categorySearchValues.getTitle(), categorySearchValues.getUserId());
