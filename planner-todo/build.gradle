@@ -32,7 +32,7 @@ dependencies {
     implementation 'ru.orlov.micro.planner:planner-entity'
     implementation 'ru.orlov.micro.planner:planner-utils'
     implementation 'org.springframework.kafka:spring-kafka'
-
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 //    implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit:3.2.1'
 
 // драйвер БД
