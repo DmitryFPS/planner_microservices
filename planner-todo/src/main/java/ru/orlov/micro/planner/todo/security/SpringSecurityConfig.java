@@ -22,8 +22,7 @@ public class SpringSecurityConfig {
 //                .anyRequest().authenticated()
 
                 .authorizeRequests()
-                .antMatchers("/api/admin/*").hasRole("admin")
-                .antMatchers("/api/user/*").hasAnyRole("admin", "user")
+                .antMatchers("/category/add").hasRole("admin")
                 .anyRequest()
                 .authenticated()
 
