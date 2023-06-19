@@ -9,7 +9,7 @@ import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.orlov.micro.planner.entity.User;
+import ru.orlov.micro.planner.plannerusers.dto.UserDTO;
 
 import javax.ws.rs.core.Response;
 import java.util.Collections;
@@ -27,13 +27,13 @@ public class KeyCloakUtils {
 
     private static Keycloak keycloak;
 
-    public Response createKeycloakUser(final User user) {
+    public Response createKeycloakUser(final UserDTO user) {
         final RealmResource realmResource = getInstance().realm(realm);
         final UsersResource userResource = realmResource.users();
         final CredentialRepresentation credentialRepresentation = createPasswordCredentials(user.getPassword());
 
         final UserRepresentation kcUser = new UserRepresentation();
-        kcUser.setUsername(user.getUserName());
+        kcUser.setUsername(user.getUsername());
         kcUser.setCredentials(Collections.singletonList(credentialRepresentation));
         kcUser.setEmail(user.getEmail());
         kcUser.setEnabled(true);
