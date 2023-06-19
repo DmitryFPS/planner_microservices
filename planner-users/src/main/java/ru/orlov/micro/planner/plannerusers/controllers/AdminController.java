@@ -19,7 +19,7 @@ public class AdminController {
     private final KeyCloakUtils keyCloakUtils;
 
     @PostMapping("/add")
-    public ResponseEntity<Object> add(@RequestBody final UserDTO user) {
+    public ResponseEntity add(@RequestBody final UserDTO user) {
         if (user.getId() != null && user.getId().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -34,6 +34,6 @@ public class AdminController {
         }
 
         final Response createResponse = keyCloakUtils.createKeycloakUser(user);
-        return ResponseEntity.status(createResponse.getStatus()).body(createResponse.getEntity());
+        return ResponseEntity.status(createResponse.getStatus()).build();
     }
 }

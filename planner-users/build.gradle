@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.0'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 group = 'ru.orlov.micro.planner'
@@ -29,7 +29,11 @@ dependencies {
 	implementation 'org.springframework.kafka:spring-kafka'
 
 	implementation ('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client') {
-		exclude(group: 'javax.ws.rs', module: 'jsr311-api')
+		exclude group: 'javax.ws.rs', module: 'jsr311-api' // нужно исключить эту реализацию, которая несовместима  keycloak
+		// подробнее о проблеме и решении:
+		// https://stackoverflow.com/questions/38320163/failed-adding-user-by-keycloak-admin-client-to-keycloak-due-to-unknown-resource
+		// https://stackoverflow.com/questions/50334943/springboot-keycloak-nosuchmethoderror-javax-ws-rs-core-uribuilder-resolvetempla
+
 	}
 
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
