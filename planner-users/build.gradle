@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.6.3'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.springframework.boot' version '2.7.0'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
 group = 'ru.orlov.micro.planner'
@@ -13,7 +13,8 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "2021.0.0")
+	set('springCloudVersion', "2021.0.3")
+	set('keycloakVersion', "18.0.0")
 }
 
 dependencies {
@@ -23,10 +24,17 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'ru.orlov.micro.planner:planner-entity'
 	implementation 'ru.orlov.micro.planner:planner-utils'
 	implementation 'org.springframework.kafka:spring-kafka'
+
+	implementation ('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client') {
+		exclude(group: 'javax.ws.rs', module: 'jsr311-api')
+	}
+
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	implementation "org.keycloak:keycloak-admin-client:${keycloakVersion}"
+
 //	implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit:3.2.1'
 
 	// драйвер БД
@@ -41,5 +49,6 @@ dependencies {
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		mavenBom "org.keycloak.bom:keycloak-adapter-bom:${keycloakVersion}"
 	}
 }

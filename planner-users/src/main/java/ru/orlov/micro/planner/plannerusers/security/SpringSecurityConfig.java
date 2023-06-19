@@ -1,4 +1,4 @@
-package ru.orlov.micro.planner.todo.security;
+package ru.orlov.micro.planner.plannerusers.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,8 @@ public class SpringSecurityConfig {
 //                .anyRequest().authenticated()
 
                 .authorizeRequests()
-                .antMatchers("/category/*", "/priority/*", "/task/*").hasRole("user")
+                .antMatchers("/admin/*").hasRole("admin") //все что связанно с (CRUD) над пользователями
+                .antMatchers("/auth/*").hasRole("user") // все что связанно с аутентификацией пользователя
                 .anyRequest()
                 .authenticated()
 
